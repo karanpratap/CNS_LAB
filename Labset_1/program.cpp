@@ -1,3 +1,6 @@
+//Author: karanpratap
+//Program: Labset 1 - Mono Alphabetic Cipher
+
 #include<bits/stdc++.h>
 using namespace std;
 
