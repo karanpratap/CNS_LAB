@@ -1,0 +1,164 @@
+//Author : karanpratap
+//Program : Labset 2 - Playfair Cipher [Still Working]
+
+#include<bits/stdc++.h>
+#define MAX 30
+using namespace std;
+
+const char filler='x';
+char overrideChar;
+
+//A function to return the row of a character (0-indexed) in a character matrix
+int rowOf(char arr[5][5], char ch){
+	for(int i=0;i<5;i++){
+		for(int j=0;j<5;j++){
+			if(arr[i][j]==ch)
+				return i;
+		}
+	}
+	return -1;
+}
+
+//A function to return the column of a character (0-indexed) in a character matrix
+int colOf(char arr[5][5], char ch){
+	for(int i=0;i<5;i++){
+		for(int j=0;j<5;j++){
+			if(arr[i][j]==ch)
+				return j;
+		}
+	}
+	return -1;
+}
+
+bool contains(char arr[],char ch){
+	for(int i=0;i<strlen(arr);i++)
+		if(arr[i]==ch)
+			return true;
+	return false;
+}
+
+int main(){
+	char msg[MAX], structuredMsg[MAX];
+	int noOfKeys, structuredMsgLength=0;
+
+	cout<<"Enter the message in plaintext:";
+	cin>>msg;
+
+	cout<<"Message Recieved:"<<msg<<endl;
+
+	cout<<"Enter the number of keys:";
+	cin>>noOfKeys;
+	
+	//declerations, initializations depending on the number of keys
+	int distinctCount[noOfKeys]={0};
+	char keys[noOfKeys][MAX];
+	char matrix[noOfKeys][5][5];
+	char distinct[noOfKeys][26];
+	char ciphertext[noOfKeys][MAX];
+
+	//Taking input keywords
+	cout<<"Enter the "<<noOfKeys<<" key(s):"<<endl;
+	for(int i=0;i<noOfKeys;i++){
+		cout<<"Key "<<i+1<<":";
+		cin>>keys[i];
+	}
+	
+	cout<<"Echoing back the keys for test purposes:"<<endl;
+	for(int i=0;i<noOfKeys;i++){
+		cout<<"Key "<<i+1<<":";
+		cout<<keys[i]<<endl;
+	}
+
+	do{
+		cout<<"Enter the character to override the other in the matrices (i/j):";
+		cin>>overrideChar;
+	}while(overrideChar!='i' &&  overrideChar!='j');
+
+	//Structuring the message - Generating pairs and adding filler characters
+	for(int i=0;i<strlen(msg);){
+		if(msg[i+1]!='\0')
+			if(msg[i]==msg[i+1]){
+				structuredMsg[structuredMsgLength++]=(msg[i]=='i' || msg[i]=='j')?overrideChar:msg[i];
+				structuredMsg[structuredMsgLength++]=filler;
+				i++;
+			}
+			else{
+				structuredMsg[structuredMsgLength++]=(msg[i]=='i' || msg[i]=='j')?overrideChar:msg[i];
+				structuredMsg[structuredMsgLength++]=(msg[i+1]=='i' || msg[i+1]=='j')?overrideChar:msg[i+1];
+				i+=2;
+			}
+		else{
+			structuredMsg[structuredMsgLength++]=(msg[i]=='i' || msg[i]=='j')?overrideChar:msg[i];
+			structuredMsg[structuredMsgLength++]=filler;
+			i++;
+		}
+	}
+	structuredMsg[structuredMsgLength]='\0';
+
+	//Generating the 5x5 matrices corresponding to the keys
+	for(int i=0;i<noOfKeys;i++){
+		//Generating distinct characters present in each of the keys
+		bool visited[26]={false};
+		int pointer=0, row=0, col=0;
+		distinctCount[i]=0;
+		for(int j=0;j<strlen(keys[i]);j++){
+			if(!contains(distinct[i],(keys[i][j]=='i' || keys[i][j]=='j')?overrideChar:keys[i][j])){
+				distinct[i][distinctCount[i]++]=(keys[i][j]=='i' || keys[i][j]=='j')?overrideChar:keys[i][j];
+			}
+		}
+		
+		//Inserting the distinct chars in the matrix
+		for(int j=0;j<distinctCount[i];j++){
+			matrix[i][row][col]=distinct[i][j];
+			visited[distinct[i][j]-97]=true;
+			if(matrix[i][row][col]==overrideChar)
+				visited[8]=visited[9]=true;
+			row=(col<4)?row:((row+1)%5);
+			col=(col+1)%5;
+		}
+		
+		//Inserting the leftover characters in the matrix
+		while(pointer<26){
+			if(!visited[pointer]){
+				matrix[i][row][col]=(pointer==8 || pointer==9)?overrideChar:pointer+97;
+				visited[pointer]=true;
+				if(pointer==8 || pointer==9)
+					visited[8]=visited[9]=true;
+				row=(col<4)?row:((row+1)%5);
+				col=(col+1)%5;
+			}
+			pointer++;
+		}
+	}
+//**************************WORKING HERE*******************************
+	//Encrypting the message corresponding to all the keys
+	for(int i=0;i<noOfKeys;i++){
+		for(int j=0;j<structuredMsgLength;j+=2){
+			
+		}
+	}
+
+	cout<<"Echoing back the distinct characters in all the keys for test purposes:"<<endl;
+	for(int i=0;i<noOfKeys;i++){
+		cout<<"Key "<<i+1<<" ["<<distinctCount[i]<<"] : ";
+		for(int j=0;j<distinctCount[i];j++)
+			cout<<distinct[i][j]<<" ";
+		cout<<endl;
+	}
+
+	cout<<"Echoing back the matrices for testing purposes:"<<endl;
+	for(int i=0;i<noOfKeys;i++){
+		cout<<"Matrix for key "<<i+1<<" :"<<endl;
+		for(int j=0;j<5;j++){
+			for(int k=0;k<5;k++){
+				cout<<matrix[i][j][k]<<" ";
+			}
+			cout<<endl;
+		}
+	}
+
+	cout<<"The message after structuring is: "<<structuredMsg<<endl;
+
+	return 0;
+}
+

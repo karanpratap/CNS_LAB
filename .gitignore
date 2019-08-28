@@ -1,0 +1,8 @@
+#Object files
+a.out
+
+#Vim temporary files
+*.swp
+
+#txt files
+*.txt
