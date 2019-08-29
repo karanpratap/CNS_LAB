@@ -64,12 +64,6 @@ int main(){
 		cin>>keys[i];
 	}
 	
-	cout<<"Echoing back the keys for test purposes:"<<endl;
-	for(int i=0;i<noOfKeys;i++){
-		cout<<"Key "<<i+1<<":";
-		cout<<keys[i]<<endl;
-	}
-
 	do{
 		cout<<"Enter the character to override the other in the matrices (i/j):";
 		cin>>overrideChar;
@@ -153,8 +147,6 @@ int main(){
 
 	cout<<"The message after structuring is: "<<structuredMsg<<endl;
 
-
-//**************************WORKING HERE*******************************
 	//Encrypting the message corresponding to all the keys
 	for(int i=0;i<noOfKeys;i++){
 		int j=0;
