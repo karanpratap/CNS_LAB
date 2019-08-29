@@ -1,8 +1,5 @@
-//Author : karanpratap
-//Program : Labset 2 - Playfair Cipher [Still Working]
-
 #include<bits/stdc++.h>
-#define MAX 30
+#define MAX 50
 using namespace std;
 
 const char filler='x';
@@ -50,11 +47,15 @@ int main(){
 	cin>>noOfKeys;
 	
 	//declerations, initializations depending on the number of keys
-	int distinctCount[noOfKeys]={0};
+	int distinctCount[noOfKeys];
 	char keys[noOfKeys][MAX];
 	char matrix[noOfKeys][5][5];
 	char distinct[noOfKeys][26];
 	char ciphertext[noOfKeys][MAX];
+	char decryptedText[noOfKeys][MAX];
+	
+	for(int i=0;i<noOfKeys;i++)
+		distinctCount[i]=0;
 
 	//Taking input keywords
 	cout<<"Enter the "<<noOfKeys<<" key(s):"<<endl;
@@ -130,14 +131,7 @@ int main(){
 			pointer++;
 		}
 	}
-//**************************WORKING HERE*******************************
-	//Encrypting the message corresponding to all the keys
-	for(int i=0;i<noOfKeys;i++){
-		for(int j=0;j<structuredMsgLength;j+=2){
-			
-		}
-	}
-
+	
 	cout<<"Echoing back the distinct characters in all the keys for test purposes:"<<endl;
 	for(int i=0;i<noOfKeys;i++){
 		cout<<"Key "<<i+1<<" ["<<distinctCount[i]<<"] : ";
@@ -159,6 +153,52 @@ int main(){
 
 	cout<<"The message after structuring is: "<<structuredMsg<<endl;
 
+
+//**************************WORKING HERE*******************************
+	//Encrypting the message corresponding to all the keys
+	for(int i=0;i<noOfKeys;i++){
+		int j=0;
+		for(j=0;j<structuredMsgLength;j+=2){	
+			if(rowOf(matrix[i],structuredMsg[j])==rowOf(matrix[i],structuredMsg[j+1])){
+				ciphertext[i][j]=matrix[i][rowOf(matrix[i],structuredMsg[j])][(colOf(matrix[i],structuredMsg[j])+1)%5];
+				ciphertext[i][j+1]=matrix[i][rowOf(matrix[i],structuredMsg[j+1])][(colOf(matrix[i],structuredMsg[j+1])+1)%5];
+			}
+			else if(colOf(matrix[i],structuredMsg[j])==colOf(matrix[i],structuredMsg[j+1])){
+				ciphertext[i][j]=matrix[i][(rowOf(matrix[i],structuredMsg[j])+1)%5][colOf(matrix[i],structuredMsg[j])];
+				ciphertext[i][j+1]=matrix[i][(rowOf(matrix[i],structuredMsg[j+1])+1)%5][colOf(matrix[i],structuredMsg[j])];
+			}
+			else{
+				ciphertext[i][j]=matrix[i][rowOf(matrix[i],structuredMsg[j])][colOf(matrix[i],structuredMsg[j+1])];
+				ciphertext[i][j+1]=matrix[i][rowOf(matrix[i],structuredMsg[j+1])][colOf(matrix[i],structuredMsg[j])];
+			}
+			cout<<endl;
+		}
+		ciphertext[i][structuredMsgLength]='\0';
+		cout<<"Ciphertext corresponding to Key "<<i+1<<" : "<<ciphertext[i]<<endl;
+	}
+	
+
+	//Decrypting corresponding to all the keys
+	for(int i=0;i<noOfKeys;i++){
+		int j=0;
+		for(j=0;j<structuredMsgLength;j+=2){
+			if(rowOf(matrix[i],ciphertext[i][j])==rowOf(matrix[i],ciphertext[i][j+1])){
+				decryptedText[i][j]=matrix[i][rowOf(matrix[i],ciphertext[i][j])][(colOf(matrix[i],ciphertext[i][j])==0)?4:(colOf(matrix[i],ciphertext[i][j])-1)%5];
+				decryptedText[i][j+1]=matrix[i][rowOf(matrix[i],ciphertext[i][j+1])][(colOf(matrix[i],ciphertext[i][j+1])==0)?4:(colOf(matrix[i],ciphertext[i][j+1])-1)%5];
+			}
+			else if(colOf(matrix[i],ciphertext[i][j])==colOf(matrix[i],ciphertext[i][j+1])){
+				decryptedText[i][j]=matrix[i][(rowOf(matrix[i],ciphertext[i][j])==0)?4:(rowOf(matrix[i],ciphertext[i][j])-1)%5][colOf(matrix[i],ciphertext[i][j])];
+				decryptedText[i][j+1]=matrix[i][(rowOf(matrix[i],ciphertext[i][j+1])==0)?4:(rowOf(matrix[i],ciphertext[i][j+1])-1)%5][colOf(matrix[i],ciphertext[i][j])];
+			}
+			else{
+				decryptedText[i][j]=matrix[i][rowOf(matrix[i],ciphertext[i][j])][colOf(matrix[i],ciphertext[i][j+1])];
+				decryptedText[i][j+1]=matrix[i][rowOf(matrix[i],ciphertext[i][j+1])][colOf(matrix[i],ciphertext[i][j])];
+			}
+			cout<<endl;
+		}
+		decryptedText[i][structuredMsgLength]='\0';
+		cout<<"Decrypted text corresponding to Key "<<i+1<<" ["<<structuredMsgLength<<"]: "<<decryptedText[i]<<endl;
+	}	
+	
 	return 0;
 }
-
