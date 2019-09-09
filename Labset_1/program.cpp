@@ -57,7 +57,7 @@ int main(){
             continue;
         distinct[::distinctCount++]=ch;
         totalChars++;
-    }
+	}
 	cout<<endl;
 	infile.close();
 	char perms[fact(totalChars)][27];
@@ -98,7 +98,7 @@ int main(){
     cout<<" Frequency | Plaintext character | Ciphertext Character"<<endl;
 	
 	for(int i=0;i<distinctCount;i++){
-		cout<<" "<<setw(9)<<left<<setprecision(2)<<frequency[i]/(float)totalChars<<" | "<<setw(19)<<left<<distinct[i]<<" | "<<setw(15)<<left<<key[i]<<endl;
+		cout<<" "<<setw(9)<<left<<frequency[i]<<" | "<<setw(19)<<left<<distinct[i]<<" | "<<setw(15)<<left<<key[i]<<endl;
 	}
 
     while(infile>>skipws>>ch){
