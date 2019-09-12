@@ -163,7 +163,6 @@ int main(){
 				ciphertext[i][j]=matrix[i][rowOf(matrix[i],structuredMsg[j])][colOf(matrix[i],structuredMsg[j+1])];
 				ciphertext[i][j+1]=matrix[i][rowOf(matrix[i],structuredMsg[j+1])][colOf(matrix[i],structuredMsg[j])];
 			}
-			cout<<endl;
 		}
 		ciphertext[i][structuredMsgLength]='\0';
 		cout<<"Ciphertext corresponding to Key "<<i+1<<" : "<<ciphertext[i]<<endl;
@@ -186,7 +185,6 @@ int main(){
 				decryptedText[i][j]=matrix[i][rowOf(matrix[i],ciphertext[i][j])][colOf(matrix[i],ciphertext[i][j+1])];
 				decryptedText[i][j+1]=matrix[i][rowOf(matrix[i],ciphertext[i][j+1])][colOf(matrix[i],ciphertext[i][j])];
 			}
-			cout<<endl;
 		}
 		decryptedText[i][structuredMsgLength]='\0';
 		cout<<"Decrypted text corresponding to Key "<<i+1<<" ["<<structuredMsgLength<<"]: "<<decryptedText[i]<<endl;
