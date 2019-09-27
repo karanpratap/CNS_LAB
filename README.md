@@ -1,6 +1,7 @@
 # Cryptography and Network Security Lab
 This repository contains the programs for Cryptography and Network Security Lab
-#Part A
+
+**Part A**
 1. Perform encryption and decryption using mono-alphabetic cipher. The program should support the following :
 * Construct an input file named plaintext.txt (consisting of 1000 alphabets, without any space or special characters)
 * Encrypt the characters of plaintext.txt and store the corresponding ciphertext characters in ciphertext.txt
