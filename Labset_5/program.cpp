@@ -2,7 +2,7 @@
 //Program : Labset 5 - DES Algorithm Key Generation
 
 #include <bits/stdc++.h>
-#include "./conversions.h"
+#include "../headers/conversions.h"
 using namespace std;
 
 //declaring all the tables

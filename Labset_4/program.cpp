@@ -1,4 +1,5 @@
-//Program : Labset 4 - Matrix transposition cipher
+//Author: karanpratap
+//Program: Labset 4 - Matrix transposition cipher
 
 #include<bits/stdc++.h>
 #define MAX 10

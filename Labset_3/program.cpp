@@ -1,3 +1,6 @@
+//Author: karanpratap
+//Program: Hill Cipher
+
 #include<bits/stdc++.h>
 #define MAX 10
 

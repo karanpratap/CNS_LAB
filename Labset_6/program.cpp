@@ -1,3 +1,6 @@
+//Author: karanpratap
+//Program: 48-bit input generation for S-box
+
 #include<bits/stdc++.h>
 #include "../headers/conversions.h"
 
