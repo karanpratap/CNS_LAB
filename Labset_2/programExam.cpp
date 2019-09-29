@@ -1,5 +1,5 @@
 //Author: karanpratap
-//Program: Playfair Cipher
+//Program: Playfair Cipher [Exam Version]
 
 #include<bits/stdc++.h>
 #define MAX 50
