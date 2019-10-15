@@ -146,7 +146,6 @@ void hillCipher(char msg[], int k2[2][2], int k3[3][3]){
 	for(int i=0;i<noOfRows2;i++){
 		for(j=0;j<2;j++){
 			cout<<(char)(msgMatrix2[i][j]+97);
-			msgMatrix2[i][j]=0;
 		}
 	}
 	cout<<endl;
@@ -155,7 +154,6 @@ void hillCipher(char msg[], int k2[2][2], int k3[3][3]){
 	for(int i=0;i<noOfRows3;i++){
 		for(j=0;j<3;j++){
 			cout<<(char)(msgMatrix3[i][j]+97);
-			msgMatrix3[i][j]=0;
 		}
 	}
 	cout<<endl;
