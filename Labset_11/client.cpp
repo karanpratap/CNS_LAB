@@ -93,7 +93,8 @@ int main(){
 		if(C==-1) break;
 		cout<<"Recieved CipherText block : "<<C<<endl;
 		M=decryption(C,PR);
-		decMsg+=to_string(M);
+		string temp="0000"+to_string(M);
+		decMsg+=temp.substr(temp.length()-4,4);
 	}
 	cout<<"Equivalent plaintext Blocks are : ";
 	for(int i=0;i<decMsg.length()/4;i++){
