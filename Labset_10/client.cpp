@@ -1,3 +1,6 @@
+//Author : karanpratap [Thanks @git-akshat]
+//Program : RSA single block demo [Client]
+
 #include<bits/stdc++.h>
 #include<arpa/inet.h>
 #define MAX 100

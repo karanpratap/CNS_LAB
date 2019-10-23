@@ -1,3 +1,6 @@
+//Author : karanpratap
+//Program : RSA Algorithm [Client Side Code]
+
 #include<bits/stdc++.h>
 #include<arpa/inet.h>
 #define MAX 100
