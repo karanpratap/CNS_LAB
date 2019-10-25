@@ -66,5 +66,14 @@ int main(){
 
 	cout<<"Calculated key K by server = "<<K<<endl;
 
+	int msg;
+	cout<<"Enter message (<"<<qandAlpha[0]<<") : ";
+	cin>>msg;
+	msg = msg^K;
+	cout<<"Encrypted message (message XOR K) = "<<msg<<endl;
+	cout<<"Sending encrypted message to the client...";
+	send(client_socket,&msg,sizeof(msg),0);
+	cout<<"OK"<<endl;
+
 	return 0;
 }

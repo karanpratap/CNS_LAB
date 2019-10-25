@@ -67,7 +67,15 @@ int main(){
 
 	K=calculateKey(xb,ya,qandAlpha[0]);
 
-	cout<<"Calculated key K by server = "<<K<<endl;
+	cout<<"Calculated key K by client = "<<K<<endl;
 	
+	int msg;
+	cout<<"Recieving encrypted message from server...";
+	recv(network_socket,&msg,sizeof(msg),0);
+	cout<<"OK"<<endl;
+	cout<<"Encrypted message recieved : "<<msg<<endl;
+
+	msg=msg^K;
+	cout<<"Decrypted message (ciphertext XOR K) = "<<msg<<endl;
 	return 0;
 }
