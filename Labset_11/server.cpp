@@ -24,7 +24,8 @@ int main(){
 	cout<<"Enter the port no : ";
 	cin>>port_no;
 	server_address.sin_port=htons(port_no);
-	inet_aton("127.0.0.1",&server_address.sin_addr); 
+	//inet_aton("127.0.0.1",&server_address.sin_addr); 
+	server_address.sin_addr.s_addr=INADDR_ANY;
 
 	bind(serv_socket,(struct sockaddr*)&server_address,sizeof(server_address));
 

@@ -47,7 +47,10 @@ int decryption(int C, int PR[2]){
 int main(){
 
 	//establishing the connection
-	
+	string host;
+	cout<<"Enter the server IP address:";
+	cin>>host;
+
 	int network_socket;
 	network_socket=socket(AF_INET,SOCK_STREAM,0);
 
@@ -57,7 +60,8 @@ int main(){
 	printf("Enter the port no : ");
 	cin>>port_no;
 	server_address.sin_port=htons(port_no); 
-	server_address.sin_addr.s_addr= INADDR_ANY; 
+	//server_address.sin_addr.s_addr= INADDR_ANY; 
+	inet_aton(host.c_str(),&server_address.sin_addr);
 
 	int status=connect(network_socket,(struct sockaddr*)&server_address, sizeof(server_address));
 	
