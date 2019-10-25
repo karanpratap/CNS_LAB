@@ -1,6 +1,4 @@
-#Cryptography and Network Security Lab
-
-This repository contains the programs for Cryptography and Network Security Lab
+##Cryptography and Network Security Lab
 
 **Part I**
 
@@ -39,4 +37,3 @@ This repository contains the programs for Cryptography and Network Security Lab
 * Establish a secret key K between client and server by exchanging the messages as shown in below figure.
 13. Compute common secret key between client and server using Diffie-Hellman key exchange technique. Perform encryption and decryption of message using the shared secret key (Use simple XOR operation to encrypt and decrypt the message.)
 14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M).
-
