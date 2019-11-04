@@ -77,10 +77,15 @@ int main(){
 	n=p*q;
 	phin=(p-1)*(q-1);
 	
-	for(e=2;e<phin;e++){
-		if(gcd(e,phin)==1)
-			break;
-	}
+	//for(e=2;e<phin;e++){
+	//	if(gcd(e,phin)==1)
+	//		break;
+	//}
+
+	srand(time(NULL));
+	do{
+		e=2+rand()%(phin-2);
+	}while(gcd(e,phin)!=1);
 
 	d=extendedEuclidean(e,phin);
 
