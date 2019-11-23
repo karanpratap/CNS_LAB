@@ -10,63 +10,100 @@ int binToDecimal(string input){
 	return res;
 }
 
-string BBS_PRNG(int p,int q){
+string decToBinary(int input){
+	bitset<48> b(input);
+	return b.to_string();
+}
+
+int gcd(int a, int b){
+	return (b==0)?a:gcd(b,a%b);
+}
+
+long long aPowbModn(int a, int b, int n){
+	long long c=0,f;
+	string bStr=decToBinary(b);
+	for(int i=0;i<bStr.length();i++){
+		c=c*2;
+		f=(f*f)%n;
+		if(bStr[i]=='1'){
+			c+=1;
+			f=(f*a)%n;
+		}
+	}
+	return f;
+}
+
+string BBS_PRNG(int p,int q, int noOfBits){
 	string res="";
 	srand(time(NULL));
 	int n=p*q;
 	int s=rand()%n+p;
 	
-	while(true){
-		if(s%p!=0 && s%q!=0)
-			break;
+	while(gcd(s,n)!=1)
 		s++;
-	}
 
 	cout<<"s = "<<s<<endl;
 
-	int x=(s*s)%n;
+	int x=aPowbModn(s,2,n);
 	int b=0;
-	for(int i=0;i<16;i++){
-		x=(x*x)%n;
-		b=abs(x%2);
-		cout<<"Bit "<<i+1<<" generated: "<<b<<endl;
+	for(int i=0;i<noOfBits;i++){
+		x=aPowbModn(x,2,n);
+		b=x%2;
 		res+=b+48;
 	}
 	return res;
 }
 
-string rabinMillerTest(int n){
+//Since rabin-miller test is said to have a probability of a wrong result for 25% values less than n, we check for 25% values of n
+bool rabinMillerTest(int n){
 	srand(time(NULL));
-	int a=rand()%(n-3)+2;
-	int k=1;
-	int flag=0, q=1;
-	while(k<=16){
-		for(q=1;pow(2,k)*q<n-1;q+=2)
-			if(pow(2,k)*q==n-1){
-				flag=1;
-				break;
-			}
-		if(flag)
-			break;
+	int nBup=n;
+	int k=0,q,a;
+	bool flag=false;
+	
+	while(n%2==0){
 		k++;
+		n/=2;
 	}
-	
-	if((int)pow(a,q)%n==1)
-		return "inconclusive";
-	
-	for(int j=0;j<k;j++){
-		if((int)pow(a,pow(2,j)*q)%n==n-1)
-			return "inconclusive";
-	}
+	q=n;
 
-	return "composite";
+	for(int i=0;i<nBup/4;i++){
+		a=rand()%(n-3)+2;
+		cout<<"a for iteration "<<i+1<<" : "<<a<<" || ";
+		
+		if(aPowbModn(a,q,n)==1){
+			cout<<"inconclusive for a="<<a<<endl;
+			continue;
+		}
+	
+		for(int j=0;j<k;j++){
+			if(aPowbModn(a,pow(2,j)*q,n)==n-1){
+				cout<<"inconclusive for a="<<a<<endl;
+				continue;
+			}
+		}
+		cout<<"composite for a="<<a<<endl;
+		flag=true;
+	}
+	
+	return flag;
 }
 
 int main(){
-	string randomNumber=BBS_PRNG(503,383);
+	int p,q,n;
+	cout<<"Enter the values of prime numbers p and q [such that p=3 mod 4 and q=3 mod 4] : ";
+	cin>>p>>q;
+	cout<<"Enter number of bits for the newly generated random number:";
+	cin>>n;
+	string randomNumber=BBS_PRNG(p,q,n);
 	cout<<"Generated Random number in binary:"<<randomNumber<<endl;
 	cout<<"Generated random number in decimal:"<<binToDecimal(randomNumber)<<endl;
-	string test=rabinMillerTest(binToDecimal(randomNumber));
-	cout<<"Result of applying RABIN-MILLER test : "<<test<<endl;
+	bool test=rabinMillerTest(73);
+	//bool test=rabinMillerTest(binToDecimal(randomNumber));
+	cout<<"Result of applying RABIN-MILLER test : "<<endl;
+	if(test)
+		cout<<binToDecimal(randomNumber)<<" is composite"<<endl;
+	else
+		cout<<binToDecimal(randomNumber)<<" is prime"<<endl;
 	return 0;
 }
