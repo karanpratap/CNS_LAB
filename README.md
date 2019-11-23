@@ -1,4 +1,4 @@
-##Cryptography and Network Security Lab
+## Cryptography and Network Security Lab
 
 **Part I**
 
@@ -34,6 +34,6 @@
 * Display the result after each step
 12. Implement RSA algorithm using client-server concept. Using this illustrate secret key distribution scenario with confidentiality and authentication. The program should support the following :
 * Both client and server generate {PU, PR} and distribute PU to each other.
-* Establish a secret key K between client and server by exchanging the messages as shown in below figure.
+* Establish a secret key K between client and server by exchanging the messages.
 13. Compute common secret key between client and server using Diffie-Hellman key exchange technique. Perform encryption and decryption of message using the shared secret key (Use simple XOR operation to encrypt and decrypt the message.)
 14. Implement DSS algorithm for signing and verification of messages between two parties (obtain H(M) using simple XOR method of hash computation on M).
